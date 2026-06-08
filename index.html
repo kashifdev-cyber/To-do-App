@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TaskFlow Pro</title>
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- Animated Background -->
+<div class="background-animation"></div>
+
+<!-- App Container -->
+<div class="app">
+
+    <!-- ================================= -->
+    <!-- SIDEBAR -->
+    <!-- ================================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+
+            <div>
+                <h2>TaskFlow</h2>
+                <p>Productivity Suite</p>
+            </div>
+
+        </div>
+
+        <nav>
+
+            <a href="#" class="active">
+                <i class="fa-solid fa-chart-line"></i>
+                Dashboard
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-list-check"></i>
+                My Tasks
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-layer-group"></i>
+                Categories
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-calendar-days"></i>
+                Calendar
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-chart-pie"></i>
+                Analytics
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </a>
+
+        </nav>
+
+        <!-- Theme Switcher -->
+
+        <div class="theme-switcher">
+
+            <h4>Themes</h4>
+
+            <div class="theme-colors">
+
+                <span class="theme blue"
+                onclick="setTheme('blue')"></span>
+
+                <span class="theme purple"
+                onclick="setTheme('purple')"></span>
+
+                <span class="theme green"
+                onclick="setTheme('green')"></span>
+
+                <span class="theme orange"
+                onclick="setTheme('orange')"></span>
+
+                <span class="theme red"
+                onclick="setTheme('red')"></span>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+    <!-- ================================= -->
+    <!-- MAIN CONTENT -->
+    <!-- ================================= -->
+
+    <main class="main-content">
+
+        <!-- Header -->
+
+        <header class="header">
+
+            <div class="welcome">
+
+                <h1>Welcome Back, Kashif 👋</h1>
+
+                <p>
+                    Manage your tasks and stay productive.
+                </p>
+
+            </div>
+
+            <div class="header-actions">
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-search"></i>
+
+                    <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search tasks...">
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- Dashboard Cards -->
+
+        <section class="dashboard-cards">
+
+            <div class="card">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-list"></i>
+                </div>
+
+                <div>
+                    <h3 id="totalTasks">
+                        0
+                    </h3>
+                    <p>Total Tasks</p>
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-icon success">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+
+                <div>
+                    <h3 id="completedTasks">
+                        0
+                    </h3>
+                    <p>Completed</p>
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-icon warning">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+
+                <div>
+                    <h3 id="pendingTasks">
+                        0
+                    </h3>
+                    <p>Pending</p>
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-icon info">
+                    <i class="fa-solid fa-chart-simple"></i>
+                </div>
+
+                <div>
+                    <h3 id="completionRate">
+                        0%
+                    </h3>
+                    <p>Completion Rate</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Progress Section -->
+
+        <section class="progress-section">
+
+            <div class="progress-header">
+
+                <h3>Overall Progress</h3>
+
+                <span id="progressText">
+                    0%
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                class="progress-fill"
+                id="progressFill">
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Create Task -->
+
+        <section class="task-form">
+
+            <h2>Create New Task</h2>
+
+            <div class="form-grid">
+
+                <input
+                type="text"
+                id="taskTitle"
+                placeholder="Task title">
+
+                <select id="taskCategory">
+
+                    <option value="Work">
+                        Work
+                    </option>
+
+                    <option value="Study">
+                        Study
+                    </option>
+
+                    <option value="Personal">
+                        Personal
+                    </option>
+
+                    <option value="Health">
+                        Health
+                    </option>
+
+                    <option value="Shopping">
+                        Shopping
+                    </option>
+
+                </select>
+
+                <select id="taskPriority">
+
+                    <option value="High">
+                        High Priority
+                    </option>
+
+                    <option value="Medium">
+                        Medium Priority
+                    </option>
+
+                    <option value="Low">
+                        Low Priority
+                    </option>
+
+                </select>
+
+                <button id="addTaskBtn">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add Task
+
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- Filters -->
+
+        <section class="filters">
+
+            <button
+            class="filter-btn active"
+            data-filter="all">
+
+                All
+
+            </button>
+
+            <button
+            class="filter-btn"
+            data-filter="pending">
+
+                Pending
+
+            </button>
+
+            <button
+            class="filter-btn"
+            data-filter="completed">
+
+                Completed
+
+            </button>
+
+        </section>
+
+        <!-- Tasks -->
+
+        <section class="tasks-section">
+
+            <div class="section-header">
+
+                <h2>
+                    My Tasks
+                </h2>
+
+                <span id="taskCounter">
+                    0 Tasks
+                </span>
+
+            </div>
+
+            <div id="taskList">
+
+                <!-- Tasks Render Here -->
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ================================= -->
+    <!-- RIGHT PANEL -->
+    <!-- ================================= -->
+
+    <aside class="right-panel">
+
+        <!-- User Card -->
+
+        <div class="profile-card">
+
+            <div class="avatar">
+                K
+            </div>
+
+            <h3>Kashif</h3>
+
+            <p>
+                Frontend Developer
+            </p>
+
+        </div>
+
+        <!-- Productivity -->
+
+        <div class="widget">
+
+            <h3>
+                Productivity Score
+            </h3>
+
+            <div class="score-circle">
+
+                <span id="productivityScore">
+                    0%
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- Category Stats -->
+
+        <div class="widget">
+
+            <h3>
+                Categories
+            </h3>
+
+            <ul class="category-list">
+
+                <li>
+                    Work
+                    <span id="workCount">0</span>
+                </li>
+
+                <li>
+                    Study
+                    <span id="studyCount">0</span>
+                </li>
+
+                <li>
+                    Personal
+                    <span id="personalCount">0</span>
+                </li>
+
+                <li>
+                    Health
+                    <span id="healthCount">0</span>
+                </li>
+
+                <li>
+                    Shopping
+                    <span id="shoppingCount">0</span>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- Quick Tips -->
+
+        <div class="widget">
+
+            <h3>
+                Productivity Tips
+            </h3>
+
+            <ul class="tips">
+
+                <li>
+                    Complete high priority tasks first.
+                </li>
+
+                <li>
+                    Break large tasks into smaller ones.
+                </li>
+
+                <li>
+                    Review your tasks daily.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </aside>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
