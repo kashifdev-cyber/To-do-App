@@ -1,109 +1,114 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
+
+```
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>TaskFlow Pro</title>
 
-<!-- Google Font -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
 
-<!-- Font Awesome -->
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
 
-<link rel="stylesheet" href="style.css">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+>
+
+<link
+    rel="stylesheet"
+    href="style.css"
+>
+```
 
 </head>
 
 <body>
 
-<!-- Animated Background -->
-<div class="background-animation"></div>
-
-<!-- App Container -->
+```
 <div class="app">
 
-    <!-- ================================= -->
-    <!-- SIDEBAR -->
-    <!-- ================================= -->
+    <!-- Sidebar -->
 
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
 
-        <div class="logo">
+        <div class="brand">
 
-            <div class="logo-icon">
-                <i class="fa-solid fa-check"></i>
+            <div class="brand-icon">
+                <i class="fa-solid fa-list-check"></i>
             </div>
 
             <div>
                 <h2>TaskFlow</h2>
-                <p>Productivity Suite</p>
+                <span>Productivity Suite</span>
             </div>
 
         </div>
 
-        <nav>
+        <nav class="menu">
 
-            <a href="#" class="active">
-                <i class="fa-solid fa-chart-line"></i>
+            <button class="menu-item active">
+                <i class="fa-solid fa-house"></i>
                 Dashboard
-            </a>
+            </button>
 
-            <a href="#">
+            <button class="menu-item">
                 <i class="fa-solid fa-list-check"></i>
-                My Tasks
-            </a>
+                Tasks
+            </button>
 
-            <a href="#">
-                <i class="fa-solid fa-layer-group"></i>
-                Categories
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-calendar-days"></i>
-                Calendar
-            </a>
-
-            <a href="#">
-                <i class="fa-solid fa-chart-pie"></i>
+            <button class="menu-item">
+                <i class="fa-solid fa-chart-line"></i>
                 Analytics
-            </a>
+            </button>
 
-            <a href="#">
+            <button class="menu-item">
                 <i class="fa-solid fa-gear"></i>
                 Settings
-            </a>
+            </button>
 
         </nav>
 
-        <!-- Theme Switcher -->
+        <div class="theme-selector">
 
-        <div class="theme-switcher">
+            <h4>Theme</h4>
 
-            <h4>Themes</h4>
+            <div class="theme-buttons">
 
-            <div class="theme-colors">
+                <button
+                    class="theme-btn blue"
+                    data-theme="blue">
+                </button>
 
-                <span class="theme blue"
-                onclick="setTheme('blue')"></span>
+                <button
+                    class="theme-btn green"
+                    data-theme="green">
+                </button>
 
-                <span class="theme purple"
-                onclick="setTheme('purple')"></span>
-
-                <span class="theme green"
-                onclick="setTheme('green')"></span>
-
-                <span class="theme orange"
-                onclick="setTheme('orange')"></span>
-
-                <span class="theme red"
-                onclick="setTheme('red')"></span>
+                <button
+                    class="theme-btn brown"
+                    data-theme="brown">
+                </button>
 
             </div>
 
@@ -111,23 +116,32 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
     </aside>
 
-    <!-- ================================= -->
-    <!-- MAIN CONTENT -->
-    <!-- ================================= -->
+    <!-- Main -->
 
     <main class="main-content">
 
-        <!-- Header -->
-
         <header class="header">
 
-            <div class="welcome">
+            <div class="header-left">
 
-                <h1>Welcome Back, Kashif 👋</h1>
+                <button
+                    id="menuToggle"
+                    class="menu-toggle"
+                >
+                    <i class="fa-solid fa-bars"></i>
+                </button>
 
-                <p>
-                    Manage your tasks and stay productive.
-                </p>
+                <div>
+
+                    <h1>
+                        Welcome Back, Kashif 👋
+                    </h1>
+
+                    <p>
+                        Manage your tasks efficiently.
+                    </p>
+
+                </div>
 
             </div>
 
@@ -138,9 +152,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                     <i class="fa-solid fa-search"></i>
 
                     <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Search tasks...">
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search tasks..."
+                    >
 
                 </div>
 
@@ -148,77 +163,57 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
         </header>
 
-        <!-- Dashboard Cards -->
+        <!-- Stats -->
 
-        <section class="dashboard-cards">
+        <section class="stats-grid">
 
-            <div class="card">
+            <article class="stat-card">
 
-                <div class="card-icon">
-                    <i class="fa-solid fa-list"></i>
-                </div>
+                <h3 id="totalTasks">
+                    0
+                </h3>
 
-                <div>
-                    <h3 id="totalTasks">
-                        0
-                    </h3>
-                    <p>Total Tasks</p>
-                </div>
+                <p>Total Tasks</p>
 
-            </div>
+            </article>
 
-            <div class="card">
+            <article class="stat-card">
 
-                <div class="card-icon success">
-                    <i class="fa-solid fa-circle-check"></i>
-                </div>
+                <h3 id="completedTasks">
+                    0
+                </h3>
 
-                <div>
-                    <h3 id="completedTasks">
-                        0
-                    </h3>
-                    <p>Completed</p>
-                </div>
+                <p>Completed</p>
 
-            </div>
+            </article>
 
-            <div class="card">
+            <article class="stat-card">
 
-                <div class="card-icon warning">
-                    <i class="fa-solid fa-clock"></i>
-                </div>
+                <h3 id="pendingTasks">
+                    0
+                </h3>
 
-                <div>
-                    <h3 id="pendingTasks">
-                        0
-                    </h3>
-                    <p>Pending</p>
-                </div>
+                <p>Pending</p>
 
-            </div>
+            </article>
 
-            <div class="card">
+            <article class="stat-card">
 
-                <div class="card-icon info">
-                    <i class="fa-solid fa-chart-simple"></i>
-                </div>
+                <h3 id="completionRate">
+                    0%
+                </h3>
 
-                <div>
-                    <h3 id="completionRate">
-                        0%
-                    </h3>
-                    <p>Completion Rate</p>
-                </div>
+                <p>Completion Rate</p>
 
-            </div>
+            </article>
 
         </section>
 
-        <!-- Progress Section -->
+        <!-- Progress -->
 
-        <section class="progress-section">
+        <section class="progress-card">
 
-            <div class="progress-header">
+            <div class="progress-head">
 
                 <h3>Overall Progress</h3>
 
@@ -228,69 +223,53 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
             </div>
 
-            <div class="progress-bar">
+            <div class="progress-track">
 
                 <div
-                class="progress-fill"
-                id="progressFill">
+                    id="progressFill"
+                    class="progress-fill">
                 </div>
 
             </div>
 
         </section>
 
-        <!-- Create Task -->
+        <!-- Add Task -->
 
         <section class="task-form">
 
-            <h2>Create New Task</h2>
+            <h2>Create Task</h2>
 
             <div class="form-grid">
 
                 <input
-                type="text"
-                id="taskTitle"
-                placeholder="Task title">
+                    type="text"
+                    id="taskTitle"
+                    placeholder="Task title"
+                >
 
                 <select id="taskCategory">
 
-                    <option value="Work">
-                        Work
-                    </option>
-
-                    <option value="Study">
-                        Study
-                    </option>
-
-                    <option value="Personal">
-                        Personal
-                    </option>
-
-                    <option value="Health">
-                        Health
-                    </option>
-
-                    <option value="Shopping">
-                        Shopping
-                    </option>
+                    <option>Work</option>
+                    <option>Study</option>
+                    <option>Personal</option>
+                    <option>Health</option>
+                    <option>Shopping</option>
 
                 </select>
 
                 <select id="taskPriority">
 
-                    <option value="High">
-                        High Priority
-                    </option>
-
-                    <option value="Medium">
-                        Medium Priority
-                    </option>
-
-                    <option value="Low">
-                        Low Priority
-                    </option>
+                    <option>High</option>
+                    <option>Medium</option>
+                    <option>Low</option>
 
                 </select>
+
+                <input
+                    type="date"
+                    id="taskDueDate"
+                >
 
                 <button id="addTaskBtn">
 
@@ -309,40 +288,35 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         <section class="filters">
 
             <button
-            class="filter-btn active"
-            data-filter="all">
-
+                class="filter-btn active"
+                data-filter="all"
+            >
                 All
-
             </button>
 
             <button
-            class="filter-btn"
-            data-filter="pending">
-
+                class="filter-btn"
+                data-filter="pending"
+            >
                 Pending
-
             </button>
 
             <button
-            class="filter-btn"
-            data-filter="completed">
-
+                class="filter-btn"
+                data-filter="completed"
+            >
                 Completed
-
             </button>
 
         </section>
 
-        <!-- Tasks -->
+        <!-- Task List -->
 
         <section class="tasks-section">
 
             <div class="section-header">
 
-                <h2>
-                    My Tasks
-                </h2>
+                <h2>Tasks</h2>
 
                 <span id="taskCounter">
                     0 Tasks
@@ -351,44 +325,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             </div>
 
             <div id="taskList">
-
-                <!-- Tasks Render Here -->
-
             </div>
 
         </section>
 
     </main>
 
-    <!-- ================================= -->
-    <!-- RIGHT PANEL -->
-    <!-- ================================= -->
+    <!-- Right Panel -->
 
     <aside class="right-panel">
 
-        <!-- User Card -->
+        <section class="widget">
 
-        <div class="profile-card">
-
-            <div class="avatar">
-                K
-            </div>
-
-            <h3>Kashif</h3>
-
-            <p>
-                Frontend Developer
-            </p>
-
-        </div>
-
-        <!-- Productivity -->
-
-        <div class="widget">
-
-            <h3>
-                Productivity Score
-            </h3>
+            <h3>Productivity Score</h3>
 
             <div class="score-circle">
 
@@ -398,15 +347,35 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
             </div>
 
-        </div>
+        </section>
 
-        <!-- Category Stats -->
+        <section class="widget">
 
-        <div class="widget">
+            <h3>Task Actions</h3>
 
-            <h3>
-                Categories
-            </h3>
+            <div class="action-buttons">
+
+                <button id="exportBtn">
+                    Export Tasks
+                </button>
+
+                <button id="importBtn">
+                    Import Tasks
+                </button>
+
+                <input
+                    type="file"
+                    id="importFile"
+                    hidden
+                >
+
+            </div>
+
+        </section>
+
+        <section class="widget">
+
+            <h3>Category Stats</h3>
 
             <ul class="category-list">
 
@@ -437,39 +406,40 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
             </ul>
 
-        </div>
-
-        <!-- Quick Tips -->
-
-        <div class="widget">
-
-            <h3>
-                Productivity Tips
-            </h3>
-
-            <ul class="tips">
-
-                <li>
-                    Complete high priority tasks first.
-                </li>
-
-                <li>
-                    Break large tasks into smaller ones.
-                </li>
-
-                <li>
-                    Review your tasks daily.
-                </li>
-
-            </ul>
-
-        </div>
+        </section>
 
     </aside>
 
 </div>
 
+<!-- Edit Modal -->
+
+<div class="modal" id="editModal">
+
+    <div class="modal-content">
+
+        <h2>Edit Task</h2>
+
+        <input
+            type="text"
+            id="editTitle"
+        >
+
+        <button id="saveEditBtn">
+            Save Changes
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Toast -->
+
+<div id="toast"></div>
+
 <script src="script.js"></script>
+```
 
 </body>
+
 </html>
