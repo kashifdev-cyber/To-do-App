@@ -366,3 +366,53 @@ document.addEventListener(
             new TaskFlow();
     }
 );
+// ==================================================
+// ADD TASK
+// ==================================================
+
+addTask() {
+
+    const title =
+        this.elements.taskTitle.value.trim();
+
+    const category =
+        this.elements.taskCategory.value;
+
+    const priority =
+        this.elements.taskPriority.value;
+
+    const dueDate =
+        this.elements.taskDueDate.value;
+
+    if (!title) {
+
+        this.showToast(
+            "Please enter a task title",
+            "error"
+        );
+
+        this.elements.taskTitle.focus();
+
+        return;
+    }
+
+    const task =
+        this.createTask({
+            title,
+            category,
+            priority,
+            dueDate
+        });
+
+    this.tasks.unshift(task);
+
+    this.saveTasks();
+
+    this.clearForm();
+
+    this.render();
+
+    this.showToast(
+        "Task created successfully"
+    );
+}
