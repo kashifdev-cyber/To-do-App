@@ -416,3 +416,872 @@ addTask() {
         "Task created successfully"
     );
 }
+// ==================================================
+// CLEAR FORM
+// ==================================================
+
+clearForm() {
+
+    this.elements.taskTitle.value = "";
+
+    this.elements.taskCategory.selectedIndex = 0;
+
+    this.elements.taskPriority.selectedIndex = 0;
+
+    this.elements.taskDueDate.value = "";
+
+    this.elements.taskTitle.focus();
+}
+// ==================================================
+// TOGGLE TASK
+// ==================================================
+
+toggleTask(taskId) {
+
+    this.tasks = this.tasks.map(task => {
+
+        if (task.id !== taskId) {
+            return task;
+        }
+
+        return {
+
+            ...task,
+
+            completed:
+                !task.completed,
+
+            updatedAt:
+                new Date().toISOString()
+        };
+    });
+
+    this.saveTasks();
+
+    this.render();
+
+    this.showToast(
+        "Task updated"
+    );
+}
+// ==================================================
+// DELETE TASK
+// ==================================================
+
+deleteTask(taskId) {
+
+    const task =
+        this.tasks.find(
+            item => item.id === taskId
+        );
+
+    if (!task) {
+        return;
+    }
+
+    const confirmed =
+        window.confirm(
+            `Delete "${task.title}" ?`
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    this.tasks =
+        this.tasks.filter(
+            task => task.id !== taskId
+        );
+
+    this.saveTasks();
+
+    this.render();
+
+    this.showToast(
+        "Task deleted"
+    );
+}
+// ==================================================
+// OPEN EDIT MODAL
+// ==================================================
+
+openEditModal(taskId) {
+
+    const task =
+        this.tasks.find(
+            item => item.id === taskId
+        );
+
+    if (!task) {
+        return;
+    }
+
+    this.currentEditId =
+        taskId;
+
+    this.elements.editTitle.value =
+        task.title;
+
+    this.elements.editModal.classList.add(
+        "show"
+    );
+
+    this.elements.editTitle.focus();
+}
+// ==================================================
+// CLOSE MODAL
+// ==================================================
+
+closeEditModal() {
+
+    this.currentEditId = null;
+
+    this.elements.editModal.classList.remove(
+        "show"
+    );
+}
+// ==================================================
+// SAVE EDIT
+// ==================================================
+
+saveEdit() {
+
+    if (!this.currentEditId) {
+        return;
+    }
+
+    const newTitle =
+        this.elements.editTitle.value.trim();
+
+    if (!newTitle) {
+
+        this.showToast(
+            "Task title required",
+            "error"
+        );
+
+        return;
+    }
+
+    this.tasks = this.tasks.map(task => {
+
+        if (
+            task.id !==
+            this.currentEditId
+        ) {
+            return task;
+        }
+
+        return {
+
+            ...task,
+
+            title: newTitle,
+
+            updatedAt:
+                new Date().toISOString()
+        };
+    });
+
+    this.saveTasks();
+
+    this.closeEditModal();
+
+    this.render();
+
+    this.showToast(
+        "Task updated"
+    );
+}
+// ==================================================
+// TOAST
+// ==================================================
+
+showToast(
+    message,
+    type = "success"
+) {
+
+    const toast =
+        this.elements.toast;
+
+    if (!toast) {
+        return;
+    }
+
+    toast.textContent =
+        message;
+
+    toast.className =
+        "show";
+
+    if (type === "error") {
+
+        toast.style.background =
+            "#ef4444";
+
+        toast.style.color =
+            "#ffffff";
+
+    } else {
+
+        toast.style.background =
+            "var(--accent)";
+
+        toast.style.color =
+            "var(--bg)";
+    }
+
+    clearTimeout(
+        this.toastTimer
+    );
+
+    this.toastTimer =
+        setTimeout(() => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        }, 2500);
+}
+// Save Edit Button
+
+this.elements.saveEditBtn?.addEventListener(
+    "click",
+    () => this.saveEdit()
+);
+
+// Close Modal On Background Click
+
+this.elements.editModal?.addEventListener(
+    "click",
+    (event) => {
+
+        if (
+            event.target ===
+            this.elements.editModal
+        ) {
+
+            this.closeEditModal();
+        }
+    }
+);
+
+// ESC Key
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            this.closeEditModal();
+        }
+    }
+);
+// ==================================================
+// TASK ACTIONS
+// ==================================================
+
+this.elements.taskList?.addEventListener(
+    "click",
+    (event) => {
+
+        const button =
+            event.target.closest(
+                "[data-action]"
+            );
+
+        if (!button) {
+            return;
+        }
+
+        const action =
+            button.dataset.action;
+
+        const taskId =
+            button.dataset.id;
+
+        switch (action) {
+
+            case "delete":
+
+                this.deleteTask(
+                    taskId
+                );
+
+                break;
+
+            case "edit":
+
+                this.openEditModal(
+                    taskId
+                );
+
+                break;
+
+            case "toggle":
+
+                this.toggleTask(
+                    taskId
+                );
+
+                break;
+        }
+    }
+);
+// ==================================================
+// TASK ACTIONS
+// ==================================================
+
+this.elements.taskList?.addEventListener(
+    "click",
+    (event) => {
+
+        const button =
+            event.target.closest(
+                "[data-action]"
+            );
+
+        if (!button) {
+            return;
+        }
+
+        const action =
+            button.dataset.action;
+
+        const taskId =
+            button.dataset.id;
+
+        switch (action) {
+
+            case "delete":
+
+                this.deleteTask(
+                    taskId
+                );
+
+                break;
+
+            case "edit":
+
+                this.openEditModal(
+                    taskId
+                );
+
+                break;
+
+            case "toggle":
+
+                this.toggleTask(
+                    taskId
+                );
+
+                break;
+        }
+    }
+);
+// ==================================================
+// RENDER
+// ==================================================
+
+render() {
+
+    const filteredTasks =
+        this.getFilteredTasks();
+
+    this.renderTasks(
+        filteredTasks
+    );
+
+    this.updateTaskCounter(
+        filteredTasks.length
+    );
+
+    this.updateStats();
+}
+// ==================================================
+// FILTER + SEARCH
+// ==================================================
+
+getFilteredTasks() {
+
+    let results =
+        [...this.tasks];
+
+    // Filter
+
+    switch (
+        this.currentFilter
+    ) {
+
+        case "pending":
+
+            results =
+                results.filter(
+                    task =>
+                        !task.completed
+                );
+
+            break;
+
+        case "completed":
+
+            results =
+                results.filter(
+                    task =>
+                        task.completed
+                );
+
+            break;
+    }
+
+    // Search
+
+    const searchValue =
+        this.elements
+            .searchInput
+            .value
+            .trim()
+            .toLowerCase();
+
+    if (searchValue) {
+
+        results =
+            results.filter(
+                task => {
+
+                    return (
+
+                        task.title
+                            .toLowerCase()
+                            .includes(
+                                searchValue
+                            )
+
+                        ||
+
+                        task.category
+                            .toLowerCase()
+                            .includes(
+                                searchValue
+                            )
+
+                        ||
+
+                        task.priority
+                            .toLowerCase()
+                            .includes(
+                                searchValue
+                            )
+                    );
+                }
+            );
+    }
+
+    return results;
+}
+// ==================================================
+// TASK RENDERING
+// ==================================================
+
+renderTasks(tasks) {
+
+    const container =
+        this.elements.taskList;
+
+    if (!container) {
+        return;
+    }
+
+    // Empty State
+
+    if (
+        tasks.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <i class="fa-solid fa-clipboard-list"></i>
+
+                <h3>
+                    No Tasks Found
+                </h3>
+
+                <p>
+                    Create your first task
+                    to get started.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+    container.innerHTML =
+        tasks
+            .map(task =>
+                this.createTaskCard(
+                    task
+                )
+            )
+            .join("");
+}
+// ==================================================
+// TASK TEMPLATE
+// ==================================================
+
+createTaskCard(task) {
+
+    const dueDate =
+        task.dueDate
+            ? this.formatDate(
+                task.dueDate
+            )
+            : "No Deadline";
+
+    return `
+
+        <article
+            class="task
+            ${task.completed
+                ? "completed"
+                : ""}"
+        >
+
+            <div class="task-left">
+
+                <button
+                    class="task-check"
+                    data-action="toggle"
+                    data-id="${task.id}"
+                >
+
+                    <i class="
+                    fa-solid
+                    ${task.completed
+                        ? "fa-circle-check"
+                        : "fa-circle"}
+                    "></i>
+
+                </button>
+
+                <div>
+
+                    <h4
+                        class="task-title"
+                    >
+                        ${task.title}
+                    </h4>
+
+                    <div
+                        class="task-meta"
+                    >
+
+                        <span
+                            class="category"
+                        >
+                            ${task.category}
+                        </span>
+
+                        <span
+                            class="
+                            priority
+                            ${task.priority.toLowerCase()}
+                            "
+                        >
+                            ${task.priority}
+                        </span>
+
+                        <span
+                            class="due-date"
+                        >
+                            ${dueDate}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div
+                class="task-actions"
+            >
+
+                <button
+                    data-action="edit"
+                    data-id="${task.id}"
+                    title="Edit"
+                >
+
+                    <i
+                    class="fa-solid fa-pen">
+                    </i>
+
+                </button>
+
+                <button
+                    data-action="delete"
+                    data-id="${task.id}"
+                    title="Delete"
+                >
+
+                    <i
+                    class="fa-solid fa-trash">
+                    </i>
+
+                </button>
+
+            </div>
+
+        </article>
+
+    `;
+}
+// ==================================================
+// DATE FORMAT
+// ==================================================
+
+formatDate(date) {
+
+    const options = {
+
+        year: "numeric",
+
+        month: "short",
+
+        day: "numeric"
+    };
+
+    return new Date(
+        date
+    ).toLocaleDateString(
+        undefined,
+        options
+    );
+}
+// ==================================================
+// DATE FORMAT
+// ==================================================
+
+formatDate(date) {
+
+    const options = {
+
+        year: "numeric",
+
+        month: "short",
+
+        day: "numeric"
+    };
+
+    return new Date(
+        date
+    ).toLocaleDateString(
+        undefined,
+        options
+    );
+}
+
+// ==================================================
+// TASK COUNTER
+// ==================================================
+
+updateTaskCounter(count) {
+
+    this.elements.taskCounter.textContent =
+
+        count === 1
+            ? "1 Task"
+            : `${count} Tasks`;
+}
+results.sort(
+    (a, b) => {
+
+        const priorityOrder = {
+
+            High: 1,
+
+            Medium: 2,
+
+            Low: 3
+        };
+
+        return (
+            priorityOrder[
+                a.priority
+            ]
+            -
+            priorityOrder[
+                b.priority
+            ]
+        );
+    }
+);
+// ==================================================
+// DASHBOARD STATS
+// ==================================================
+
+updateStats() {
+
+    const totalTasks =
+        this.tasks.length;
+
+    const completedTasks =
+        this.tasks.filter(
+            task => task.completed
+        ).length;
+
+    const pendingTasks =
+        totalTasks - completedTasks;
+
+    const completionRate =
+        totalTasks > 0
+            ? Math.round(
+                (completedTasks / totalTasks) * 100
+            )
+            : 0;
+
+    // Dashboard Cards
+
+    this.elements.totalTasks.textContent =
+        totalTasks;
+
+    this.elements.completedTasks.textContent =
+        completedTasks;
+
+    this.elements.pendingTasks.textContent =
+        pendingTasks;
+
+    this.elements.completionRate.textContent =
+        `${completionRate}%`;
+
+    // Productivity Widget
+
+    this.elements.productivityScore.textContent =
+        `${completionRate}%`;
+
+    // Progress Bar
+
+    this.elements.progressText.textContent =
+        `${completionRate}%`;
+
+    this.elements.progressFill.style.width =
+        `${completionRate}%`;
+
+    // Categories
+
+    this.updateCategoryStats();
+}
+// ==================================================
+// CATEGORY ANALYTICS
+// ==================================================
+
+updateCategoryStats() {
+
+    const stats = {
+
+        Work: 0,
+
+        Study: 0,
+
+        Personal: 0,
+
+        Health: 0,
+
+        Shopping: 0
+    };
+
+    this.tasks.forEach(task => {
+
+        if (
+            stats.hasOwnProperty(
+                task.category
+            )
+        ) {
+
+            stats[
+                task.category
+            ]++;
+        }
+    });
+
+    this.elements.workCount.textContent =
+        stats.Work;
+
+    this.elements.studyCount.textContent =
+        stats.Study;
+
+    this.elements.personalCount.textContent =
+        stats.Personal;
+
+    this.elements.healthCount.textContent =
+        stats.Health;
+
+    this.elements.shoppingCount.textContent =
+        stats.Shopping;
+}
+// ==================================================
+// PRODUCTIVITY LEVEL
+// ==================================================
+
+getProductivityLevel() {
+
+    const total =
+        this.tasks.length;
+
+    if (!total) {
+
+        return {
+            text: "No Data",
+            className: "neutral"
+        };
+    }
+
+    const completed =
+        this.tasks.filter(
+            task => task.completed
+        ).length;
+
+    const score =
+        Math.round(
+            (completed / total) * 100
+        );
+
+    if (score >= 90) {
+
+        return {
+            text: "Excellent",
+            className: "excellent"
+        };
+    }
+
+    if (score >= 70) {
+
+        return {
+            text: "Good",
+            className: "good"
+        };
+    }
+
+    if (score >= 40) {
+
+        return {
+            text: "Average",
+            className: "average"
+        };
+    }
+
+    return {
+        text: "Needs Focus",
+        className: "poor"
+    };
+}
