@@ -20,6 +20,29 @@ class TaskFlow {
         this.elements = {};
 
         this.initialize();
+        this.themes = {
+
+    blue: {
+        accent: "#4F7CFF",
+        accentSoft: "#7288AE",
+        bg: "#111844",
+        surface: "#1B2559"
+    },
+
+    green: {
+        accent: "#428475",
+        accentSoft: "#89D7B7",
+        bg: "#1A312C",
+        surface: "#21443D"
+    },
+
+    brown: {
+        accent: "#8A6334",
+        accentSoft: "#E1DCC9",
+        bg: "#1F150C",
+        surface: "#412D15"
+    }
+};
     }
 
     // ==================================================
@@ -147,6 +170,20 @@ class TaskFlow {
             toast:
                 document.getElementById("toast")
         };
+        themeButtons:
+    document.querySelectorAll(
+        ".theme-btn"
+    ),
+
+menuToggle:
+    document.getElementById(
+        "menuToggle"
+    ),
+
+sidebar:
+    document.getElementById(
+        "sidebar"
+    ),
     }
 
     // ==================================================
@@ -195,25 +232,61 @@ class TaskFlow {
             );
         }
     }
+// ==================================================
+// APPLY THEME
+// ==================================================
+
+applyTheme(themeName) {
+
+    const theme =
+        this.themes[themeName];
+
+    if (!theme) return;
+
+    const root =
+        document.documentElement;
+
+    root.style.setProperty(
+        "--accent",
+        theme.accent
+    );
+
+    root.style.setProperty(
+        "--accent-soft",
+        theme.accentSoft
+    );
+
+    root.style.setProperty(
+        "--bg",
+        theme.bg
+    );
+
+    root.style.setProperty(
+        "--surface",
+        theme.surface
+    );
+
+    localStorage.setItem(
+        this.THEME_KEY,
+        themeName
+    );
+}
 
     // ==================================================
-    // THEME STORAGE
-    // ==================================================
+// LOAD THEME
+// ==================================================
 
-    loadTheme() {
+loadTheme() {
 
-        const savedTheme =
-            localStorage.getItem(
-                this.THEME_KEY
-            );
+    const savedTheme =
+        localStorage.getItem(
+            this.THEME_KEY
+        ) || "blue";
 
-        if (!savedTheme) {
-            return;
-        }
-
-        document.body.dataset.theme =
-            savedTheme;
-    }
+    this.applyTheme(
+        savedTheme
+    );
+}
 
     saveTheme(theme) {
 
@@ -316,24 +389,84 @@ class TaskFlow {
                 );
             });
 
-        // Theme Buttons
-        document
-            .querySelectorAll(".theme-btn")
-            .forEach(button => {
+      // ==================================================
+// THEME BUTTONS
+// ==================================================
 
-                button.addEventListener(
-                    "click",
-                    () => {
+this.elements.themeButtons
+    .forEach(button => {
 
-                        const theme =
-                            button.dataset.theme;
+        button.addEventListener(
+            "click",
+            () => {
 
-                        this.saveTheme(theme);
-                    }
+                const theme =
+                    button.dataset.theme;
+
+                this.applyTheme(
+                    theme
                 );
-            });
-    }
 
+                this.showToast(
+                    `${theme} theme activated`
+                );
+            }
+        );
+    });
+        // ==================================================
+// MOBILE SIDEBAR
+// ==================================================
+
+toggleSidebar() {
+
+    this.elements.sidebar
+        ?.classList.toggle(
+            "active"
+        );
+}
+        // Mobile Menu
+
+this.elements.menuToggle
+    ?.addEventListener(
+        "click",
+        () => {
+
+            this.toggleSidebar();
+        }
+    );
+        // ==================================================
+// CLOSE SIDEBAR
+// ==================================================
+
+closeSidebar() {
+
+    if (
+        window.innerWidth <= 992
+    ) {
+
+        this.elements.sidebar
+            ?.classList.remove(
+                "active"
+            );
+    }
+}
+    }
+this.closeSidebar();
+    window.addEventListener(
+    "resize",
+    () => {
+
+        if (
+            window.innerWidth > 992
+        ) {
+
+            this.elements.sidebar
+                ?.classList.remove(
+                    "active"
+                );
+        }
+    }
+);
     // ==================================================
     // PLACEHOLDERS
     // (Implemented in next parts)
@@ -347,11 +480,21 @@ class TaskFlow {
     }
 
     render() {
+        render() {
 
-        console.log(
-            "Part 3 → Render Tasks"
-        );
-    }
+    const filteredTasks =
+        this.getFilteredTasks();
+
+    this.renderTasks(
+        filteredTasks
+    );
+
+    this.updateTaskCounter(
+        filteredTasks.length
+    );
+
+    this.updateStats();
+}   }
 }
 
 // ======================================================
@@ -495,7 +638,13 @@ deleteTask(taskId) {
 
     this.saveTasks();
 
-    this.render();
+    this.render(
+addTask()
+toggleTask()
+deleteTask()
+saveEdit()
+ );
+    
 
     this.showToast(
         "Task deleted"
@@ -588,6 +737,7 @@ saveEdit() {
     this.closeEditModal();
 
     this.render();
+    updateStats();
 
     this.showToast(
         "Task updated"
