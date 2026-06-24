@@ -345,6 +345,50 @@ background:rgb(66,132,117);
 .brown{
 background:rgb(65,45,21);
 }
+.theme-section{
+    margin-top:auto;
+    padding-top:24px;
+}
+
+.theme-section h4{
+    font-size:14px;
+    margin-bottom:12px;
+    color:var(--text-muted);
+}
+
+.theme-picker{
+    display:flex;
+    gap:10px;
+}
+
+.theme-btn{
+    width:36px;
+    height:36px;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+    transition:.25s ease;
+}
+
+.theme-btn:hover{
+    transform:scale(1.1);
+}
+
+.theme-btn.active{
+    outline:3px solid #fff;
+}
+
+.theme-btn.blue{
+    background:#4F7CFF;
+}
+
+.theme-btn.green{
+    background:#428475;
+}
+
+.theme-btn.brown{
+    background:#8A6334;
+}
 
 /* ==========================
 MAIN CONTENT
