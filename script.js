@@ -1285,3 +1285,90 @@ getProductivityLevel() {
         className: "poor"
     };
 }
+const level =
+    this.getProductivityLevel();
+
+const levelElement =
+    document.getElementById(
+        "productivityLevel"
+    );
+
+if (levelElement) {
+
+    levelElement.textContent =
+        level.text;
+
+    levelElement.className =
+        level.className;
+}
+// ==================================================
+// OVERDUE TASKS
+// ==================================================
+
+getOverdueTasks() {
+
+    const today =
+        new Date();
+
+    today.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
+    return this.tasks.filter(task => {
+
+        if (
+            !task.dueDate ||
+            task.completed
+        ) {
+
+            return false;
+        }
+
+        const dueDate =
+            new Date(
+                task.dueDate
+            );
+
+        return dueDate < today;
+    }).length;
+}
+// ==================================================
+// UPCOMING TASKS
+// ==================================================
+
+getUpcomingTasks() {
+
+    const today =
+        new Date();
+
+    const nextWeek =
+        new Date();
+
+    nextWeek.setDate(
+        today.getDate() + 7
+    );
+
+    return this.tasks.filter(task => {
+
+        if (
+            !task.dueDate ||
+            task.completed
+        ) {
+
+            return false;
+        }
+
+        const dueDate =
+            new Date(
+                task.dueDate
+            );
+
+        return (
+            dueDate >= today &&
+            dueDate <= nextWeek
+        );
+    }).length;
+}
